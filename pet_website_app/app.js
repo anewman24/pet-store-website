@@ -39,7 +39,8 @@ const sessionConfig = {
 }
 
 // database connection
-const {connectMongo} = require("./database");
+const connectMongo = require("./database");
+connectMongo();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 // view engine setup
@@ -83,5 +84,3 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
-// Exporting the connectDatabase function for use in tests
-module.exports.connectDatabase = connectMongo;
