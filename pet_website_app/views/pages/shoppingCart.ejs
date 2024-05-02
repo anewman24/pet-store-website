@@ -21,13 +21,13 @@
       <% for(i=0;i<products.length;i++) {%>
         <div class="row">
           <div class="column">
-            <img src=<%= products[i].img %> style="width:100%;height:auto;">
-            <h2><%= products[i].productName %></h2>
-            <h3>$<%= products[i].price %></h3>
-            <body><%= products[i].description %></body>
+            <img src=<%= products[i].product.img %> style="width:100%;height:auto;">
+            <h2><%= products[i].product.productName %></h2>
+            <h3>$<%= products[i].product.price %></h3>
+            <body><%= products[i].product.description %></body>
             <h3></h3>
             <form action="/pages/shoppingCart/<%= encodeURIComponent(products[i].productName) %>" method="post">
-              <input type="number" name="number" min="0" max="100" value="1"/>
+              <input type="number" name="number" min="0" max="100" value="<%= products[i].num %>"/>
               <button type="submit">Update</button>
             </form>
           </div>
@@ -40,7 +40,7 @@
               <body><%= products[i].description %></body>
               <h3></h3>
               <form action="/pages/shoppingCart/<%= encodeURIComponent(products[i].productName) %>" method="post">
-                <input type="number" name="number" min="0" max="100" value="1"/>
+                <input type="number" name="number" min="0" max="100" value="<%= products[i].num %>"/>
                 <button type="submit">Update</button>
               </form>
             </div>
@@ -54,7 +54,7 @@
               <body><%= products[i].description %></body>
               <h3></h3>
               <form action="/pages/shoppingCart/<%= encodeURIComponent(products[i].productName) %>" method="post">
-                <input type="number" name="number" min="0" max="100" value="1"/>
+                <input type="number" name="number" min="0" max="100" value="<%= products[i].num %>"/>
                 <button type="submit">Update</button>
               </form>
             </div>

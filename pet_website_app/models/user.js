@@ -1,5 +1,6 @@
 
 const mongoose = require('mongoose');
+const product = require('./product')
 
 // Schema with user collection fields in MongoDB
 const userSchema = new mongoose.Schema({
@@ -12,7 +13,7 @@ const userSchema = new mongoose.Schema({
     userName: String,
     password: String,
     isAdmin: Boolean,
-    cart: Array
+    cart: [{product: Object, num: Number}]
 }, { versionKey: false });
 
 //user class code 

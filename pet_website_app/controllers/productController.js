@@ -59,13 +59,28 @@ async function addProduct(_name,_price,_tags,_category,_img,_description) {
 }
 
 async function addToCart(username, prodName, amt) {
+  console.log("Given Product name is:", prodName)
   const prod = await Product.findOne({productName: prodName});
+  console.log('Found Product is:', prod)
+  const foundUser = await User.findOne({userName: username});
+  const cart = foundUser.cart;
+  let foundNum = 0;
+  for(let i=0; i<cart.length; i++) {
+    if(cart[i].product.productName == prodName) {
+      foundNum = cart[i].num;
+    }
+  }
+  console.log("Number of products found is", foundNum);
+  console.log("Product price is: ", prod.price);
   let cost = prod.price * amt;
   let newProd = prod;
   newProd.price = cost;
-  await User.updateOne({ userName : username }, { $pull: { cart : {productName : prodName} } });
+  await User.updateOne({ userName : username }, { $pull: { cart : {product : newProd} } });
+  await User.updateOne({ userName: username }, { $addToSet: {cart: {product: newProd, num: foundNum+amt }}})
+  //await User.updateOne({ userName: username}, { cart: {product: newProd, num: amnt}})
+  //await User.updateOne({ userName : username }, { $pull: { cart : {productName : prodName} } });
   //await User.updateOne({ userName : username }, { $pull: {cart : {productName : prodName}} });
- await User.updateOne({ userName : username }, { $addToSet: {cart : newProd}} );
+ //await User.updateOne({ userName : username }, { $addToSet: {cart : newProd}} );
 }
 
 async function removeFromCart(username, prodName) {
@@ -119,7 +134,8 @@ async function deleteAudit(_name) {
 async function subtotal(cart) {
   let sum = 0;
   for(i=0; i < cart.length; i++) {
-    sum+=cart[i].price;
+    console.log("Item price is: ", cart[i].product.price)
+    sum+=cart[i].product.price;
   }
   return sum;
 }

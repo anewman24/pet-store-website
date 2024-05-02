@@ -15,7 +15,7 @@ router.get('/', async function(req, res, next) {
     sum = await productFunctions.subtotal(display);
   }
   res.render('pages/shoppingCart', {
-    title: 'Shopping Cart',
+    title: 'Shopping Cart', 
     products: display,
     subtotal: (Math.round(sum * 100) / 100)
   });
