@@ -107,6 +107,35 @@ Below is an example of a document in the 'products' collection. A collection is 
 }]  
 }
 
+#### Maintenance Notes
+Changed User cart to an array of { product: JSON Object, num: Int }
+
+{  
+"_id": ObjectId,   
+"firstName": String,  
+“lastName": String,   
+"email": String,    
+"addy": String,  
+"state": String,  
+"country": String,  
+"username": String,  
+"password": String,  
+"isAdmin": boolean  
+
+"Cart": [
+product: {
+"_id": ObjectId,  
+"productName": String,  
+"price": Double,  
+"tags": Array,  
+"category": String,  
+"img": String,  
+"description": String
+}
+num : Int
+]  
+}
+
 MongoDB is a flexible database, so you can insert a 'user' document without identifying each field. However, we have code in our application that ensures new users enter their first name, last name, username, and password. 
 
 ### 'audits' collection schema
