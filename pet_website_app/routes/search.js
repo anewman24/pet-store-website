@@ -6,6 +6,7 @@ const Fuse = require('fuse.js');
 
 router.get('/', async function(req,res,next) {
   console.log(req.session);
+  const user1 = req.session.user;
   try {
   productObjects = await productFunctions.fetchProducts();
 
@@ -14,6 +15,7 @@ router.get('/', async function(req,res,next) {
     products: productObjects,
     tags: [],
     animal: "Both",
+    user: user1
   });
   } catch (error) {
     console.error('Error searching: ', error);
@@ -21,6 +23,7 @@ router.get('/', async function(req,res,next) {
 });
 
 router.post('/', async (req, res) => {
+  const user1 = req.session.user;
   const term = req.body.search.toLowerCase();
   console.log(term);
   try {
@@ -44,6 +47,7 @@ router.post('/', async (req, res) => {
       products: searched,
       tags: [],
       animal: "Both",
+      user: user1
     });
   } catch(error) {
     console.error("Error searching products", error);

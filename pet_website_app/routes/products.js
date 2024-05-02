@@ -7,12 +7,13 @@ const userFunctions = require ('../controllers/userController');
 router.get('/', async function(req,res,next) {
   try {
   productObjects = await productFunctions.fetchProducts();
-
+  const user = req.session.user;
   res.render('pages/products', {
     title: 'Products',
     products: productObjects,
     tags: [],
     animal: "Both",
+    user: user
   });
   } catch (error) {
     console.error('Error fetching products: ', error);
@@ -23,6 +24,7 @@ router.post('/', async (req, res) => {
   const fAnimal = req.body.animal;
   const fTags = req.body.tag;
   console.log('Received request with animal type:', fAnimal); // Log the animal type
+  const user = req.session.user;
   try {
     productObjects = await productFunctions.fetchProducts();
     let productObjectsFilteredAnimal = [];
@@ -68,6 +70,7 @@ router.post('/', async (req, res) => {
       products: productObjectsFiltered,
       tags: fTags,
       animal: fAnimal,
+      user: user
     });
   } catch(error){console.error("Error filtering products")}
 })
